@@ -23,7 +23,7 @@ app.options('/*', cacheMiddleware());
 // Proxy to CORS server when request misses cache
 app.use(expressHttpProxy(`localhost:${CORS_PROXY_PORT}`));
 
-const APP_PORT = process.env.PORT || 443;
+const APP_PORT = process.env.PORT || 8011;
 app.listen(APP_PORT, () => {
   console.log(`External CORS cache server started at port ${APP_PORT}`);
 });
