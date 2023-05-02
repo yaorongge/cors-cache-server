@@ -1,5 +1,5 @@
 //server.js - bassed on the Medium article by Hon Nam
-
+/*
 const corsAnywhere = require('cors-anywhere');
 const express = require('express');
 const apicache = require('apicache');
@@ -12,6 +12,23 @@ corsAnywhere.createServer({}).listen(CORS_PROXY_PORT, () => {
     `Internal CORS Anywhere server started at port ${CORS_PROXY_PORT}`
   );
 });
+*/
+
+// Listen on a specific host via the HOST environment variable
+const host = process.env.HOST || '0.0.0.0';
+// Listen on a specific port via the PORT environment variable
+const port = process.env.PORT || 8080;
+
+const cors_proxy = require('cors-anywhere');
+cors_proxy.createServer({
+    originWhitelist: [], // Allow all origins
+    requireHeader: ['origin', 'x-requested-with'],
+    removeHeaders: ['cookie', 'cookie2']
+}).listen(port, host, function() {
+    console.log('Running CORS Anywhere on ' + host + ':' + port);
+});
+
+/*
 
 // Create express Cache server
 let app = express();
@@ -41,3 +58,4 @@ function cacheMiddleware() {
   let cacheMiddleware = apicache.options(cacheOptions).middleware();
   return cacheMiddleware;
 }
+*/
